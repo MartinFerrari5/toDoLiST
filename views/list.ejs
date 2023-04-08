@@ -1,0 +1,28 @@
+<%- include('header'); -%>
+
+    <div class="page-title">
+        <h1 class="title"><%= fullDay %></h1>
+        <div class="list-form">
+            <form action="/delete/<%=url%>" method="post">
+            <% items.forEach(item=>{%>
+                <div class="list-campo">
+                    <input class="check" onChange="this.form.submit()" type="checkbox"
+                     name="check" value="<%=item.name%>">
+                <li class="list-item"><%=item.name%></li>
+                <button class="delete" name="check" type="submit" value="<%=item.name%>" >x</button>
+                </div>
+            <%})%>
+        </form>
+        </div>
+        <form class="list-form" action="/" method="POST">
+            <div class="list-submit" >
+              
+                <input  autocomplete="off" autocapitalize="on" name="newItem" class="newItem" value="" placeholder="New Item">
+                <button  class="list-add" name="list" value="<%=url%>" type="submit">+</button>
+            </div>
+        </form>
+        <h4>Tintin Company 2022</h4>
+    </div>
+   <script src="../public/js/code.js"></script>
+</body>
+</html>
