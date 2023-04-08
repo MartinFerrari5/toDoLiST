@@ -23,20 +23,25 @@ const itemsSchema = new Schema({
     name:  String
   });
   const List= mongoose.model('list', itemsSchema)
-const item1= new List({
+const item1= {
     name: "Welcome to your To Do List"
-})
-const item2=new List({
+}
+const item2={
     name: "Press + no add an item"
-})
-const item3= new List({
+}
+const item3= {
     name: "<-- Touch it to delete an item"
-})
+}
+/*const item4=new List{
+    name: String
+    items: itemsScehma
+} */
 const defaultItems=[item1, item2, item3]
 
 const newList=new Schema({
     name: String,
-    items: [itemsSchema]
+    items: Array
+    // items: [itemsSchema]
 })
   
   const Items= mongoose.model('item', newList)
@@ -66,7 +71,7 @@ app.post('/', (req, res)=>{
     let newItem=req.body.newItem
     let url=req.body.list
     if(newItem.length<2) {
-        res.redirect('/')
+        res.redirect(url)
         return
     }
     if(url!=='list'){
@@ -93,14 +98,15 @@ app.get('/:topic', (req, res)=>{
     let urlTopic= req.params.topic.toLowerCase()
     let urlFirstLetter= lodash.capitalize(urlTopic)
     Items.find({name: urlTopic}).then(foundItems=>{
-        
+        console.log(foundItems)
         if(foundItems.length==0) {
             const itemCreated= new Items({
                 name: urlTopic,
                 items: defaultItems
             })
             itemCreated.save()
-            
+            console.log('home')
+            return
             res.redirect(urlTopic)
         }else {
             res.render('list', {fullDay: `${urlFirstLetter}`,
