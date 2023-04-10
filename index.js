@@ -1,4 +1,5 @@
 "use strict"
+require('dotenv').config()
 const express=require('express')
 const app=express()
 const date=require(__dirname + '/date.js')
@@ -7,7 +8,7 @@ const dataBase=require(__dirname + '/dataBase.js')
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const port=process.env.PORT || 3000
-// PARA PODER LEER ARCHIVOS (CSS)
+mongoose.set('strictQuery', false)
 
 // EJS(templates)
 app.set('view engine', 'ejs');
@@ -146,8 +147,9 @@ app.post('/delete/:topic', (req,res)=>{
 })
 
 
-
+// PARA PODER LEER ARCHIVOS (CSS)
 app.use(express.static(__dirname))
+
 app.listen(port, ()=>{
     console.log(`Listening to port ${port}`)
 })
