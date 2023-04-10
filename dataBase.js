@@ -3,8 +3,12 @@
 const mongoose = require("mongoose");
 
 module.exports.activate=async ()=>{
-    const uri='mongodb://127.0.0.1:27017/listDB'
+  try {
+    const uri=process.env.MONGO_URI
     await mongoose.connect(uri);
+  } catch (error) {
+    process.exit(1)
+  }
     
 }
 
