@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const PORT=process.env.PORT || 3000
 mongoose.set('strictQuery', false)
-const client = new MongoClient(process.env.MONGO_URI);
+
 
 // EJS(templates)
 app.set('view engine', 'ejs');
