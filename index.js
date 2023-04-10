@@ -7,8 +7,9 @@ const lodash=require("lodash")
 const dataBase=require(__dirname + '/dataBase.js')
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const port=process.env.PORT || 3000
+const PORT=process.env.PORT || 3000
 mongoose.set('strictQuery', false)
+const client = new MongoClient(process.env.MONGO_URI);
 
 // EJS(templates)
 app.set('view engine', 'ejs');
@@ -149,8 +150,12 @@ app.post('/delete/:topic', (req,res)=>{
 
 // PARA PODER LEER ARCHIVOS (CSS)
 app.use(express.static(__dirname))
+client.connect(err => {
+    if(err){ console.error(err); return false;}
+    // connection to mongo is successful, listen for requests
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+});
 
-app.listen(port, ()=>{
-    console.log(`Listening to port ${port}`)
-})
 
