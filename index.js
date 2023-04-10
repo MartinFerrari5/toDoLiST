@@ -1,6 +1,6 @@
 "use strict"
 require('dotenv').config()
-const { MongoClient } = require('mongodb');
+
 const express=require('express')
 const app=express()
 const date=require(__dirname + '/date.js')
@@ -151,12 +151,12 @@ app.post('/delete/:topic', (req,res)=>{
 
 // PARA PODER LEER ARCHIVOS (CSS)
 app.use(express.static(__dirname))
-client.connect(err => {
+
     if(err){ console.error(err); return false;}
     // connection to mongo is successful, listen for requests
     app.listen(PORT, () => {
         console.log("listening for requests");
     })
-});
+
 
 
